@@ -53,8 +53,10 @@ def build_circuit(brain, circuit):
 def follow_circuit(brain, circuit):
     for x,y,z,i,j,k in itertools.product(range(ACT_HEIGHT),range(ACT_LENGTH),range(ACT_WIDTH),[-1,1],[-1,1],[-1,1]):
         if (ACT_HEIGHT>x+i>0 and ACT_LENGTH>y+j>0 and ACT_WIDTH>z+k>0):
-            if (circuit[x+i][y+j][z+k] != 0 and brain[x][y][z] != 0):
+            if (circuit[x+i][y+j][z+k] > brain[x][y][z] and brain[x][y][z] > 0):
                 brain[x+i][y+j][z+k] = brain[x][y][z]
+            else:
+                brain[x+i][y+j][z+k] = circuit[x+i][y+j][z+k]
     return brain
 
 def circuit_coord(circuit):
